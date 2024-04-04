@@ -1,8 +1,11 @@
 package com.atguigu.cloud.controller;
 
+import cn.hutool.core.date.DateUnit;
+import cn.hutool.core.date.DateUtil;
 import com.atguigu.cloud.entities.PayDTO;
 import com.atguigu.cloud.feignService.PayFeignApi;
 import com.atguigu.cloud.resp.ResultData;
+import com.atguigu.cloud.resp.ReturnCodeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +37,16 @@ public class OrderController{
     public ResultData getPayInfo(@PathVariable("id") Integer id)
     {
         System.out.println("-------支付微服务远程调用，按照id查询订单支付流水信息");
-        ResultData resultData = payFeignApi.getPayInfo(id);
+        ResultData resultData = null;
+        try {
+            System.out.println("开始调用getPayInfo，时间: "  + DateUtil.now());
+            resultData = payFeignApi.getPayInfo(id);
+        } catch (Exception e) {
+            // throw new RuntimeException(e);
+            e.printStackTrace();
+            System.out.println("结束调用getPayInfo，时间: "  + DateUtil.now());
+            return ResultData.fail(ReturnCodeEnum.RC500.getCode(),ReturnCodeEnum.RC500.getMessage());
+        }
         return resultData;
     }
 

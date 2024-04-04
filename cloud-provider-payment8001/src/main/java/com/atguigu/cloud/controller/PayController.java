@@ -65,6 +65,9 @@ public class PayController
 
         if (id < 0) throw new RuntimeException("id不能为空！");
 
+        // 测试OpenFeign的默认超时时间
+        try {Thread.sleep(64000);} catch (InterruptedException e) {e.printStackTrace();}
+
         Pay pay = payService.getById(id);
         return ResultData.success(pay);
     }
