@@ -1,0 +1,22 @@
+server:
+    port: 8001
+spring:
+    profiles:
+        active: dev # 多环境配置加载内容dev/prod,不写就是默认default配置
+    application:
+        name: cloud-payment-service
+        ####Spring Cloud Consul for Service Discovery
+    cloud:
+        consul:
+            host: localhost
+            port: 8500
+            discovery:
+                service-name: ${spring.application.name}
+            config:
+                format: yaml
+                profile-separator: '-'
+                watch:
+                    wait-time: 10  # 更新等待时间
+# config/cloud-payment-service/data
+#       /cloud-payment-service-dev/data
+#       /cloud-payment-service-prod/data
