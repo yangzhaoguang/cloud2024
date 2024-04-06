@@ -1,5 +1,6 @@
 package com.atguigu.cloud.feignService;
 
+import cn.hutool.core.util.IdUtil;
 import com.atguigu.cloud.entities.PayDTO;
 import com.atguigu.cloud.resp.ResultData;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
  * Date: 2024/4/4 18:11
  * Description:
  */
-@FeignClient("cloud-payment-service") // 指明服务端的服务名
+// @FeignClient("cloud-payment-service") // 指明服务端的服务名
+@FeignClient("cloud-gateway") // 指明为网关
 public interface PayFeignApi{
     /**
      * 新增一条支付相关流水记录
@@ -65,4 +67,15 @@ public interface PayFeignApi{
     public String myRatelimit(@PathVariable("id") Integer id);
 
 
+    /**
+     *  测试网关+ Feign
+     * */
+    @GetMapping(value = "/pay/gateway/get/{id}")
+    public ResultData getById(@PathVariable("id") Integer id);
+
+    /**
+     * 测试网关+ Feign
+     * */
+    @GetMapping(value = "/pay/gateway/info")
+    public ResultData<String> getGatewayInfo();
 }
