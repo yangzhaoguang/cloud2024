@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * Description:
  */
 // @FeignClient("cloud-payment-service") // 指明服务端的服务名
-@FeignClient("cloud-gateway") // 指明为网关
+@FeignClient(value = "cloud-gateway") // 指明为网关
 public interface PayFeignApi{
     /**
      * 新增一条支付相关流水记录
