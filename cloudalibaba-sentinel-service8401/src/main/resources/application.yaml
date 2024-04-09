@@ -28,3 +28,4 @@ spring:
                       data-type: json
                       rule-type: param_flow  # flow流量控制规则。Degrade熔断降级规则、Authority访问控制规则、System系统保护规则、ParamFlow热点规则
                       
+            web-context-unify: false # controller层的方法对service层调用不认为是同一个根链路
